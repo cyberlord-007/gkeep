@@ -1,22 +1,33 @@
 import React from 'react'
-import { SideBarWrapper,CloseIcon,Icon,SidebarContainer,SidebarMenu,SidebarLink,SidebarLinkWrap,SidebarLinkIcon,SidebarLinkR,SidebarLinkA} from './SidebarStyles'
+import { SideBarWrapper,CloseIcon,Icon,SidebarContainer,SidebarMenu,SidebarLink,SidebarRow} from './SidebarStyles'
+import {FaLightbulb,FaBell,FaPencilAlt,FaCalendar,FaTrash} from 'react-icons/fa'
 
-const Sidebar = ({isOpen,toggle}) => {
+
+const Sidebar = ({isOpen,toggle,mode}) => {
 	return (
 		<>
-        <SideBarWrapper isOpen={isOpen} onClick={toggle}>
+        <SideBarWrapper mode={mode} isOpen={isOpen} onClick={toggle}>
             <Icon onClick={toggle}>
-                <CloseIcon/>
+                <CloseIcon mode={mode}/>
             </Icon>
             <SidebarContainer onClick={toggle}>
                 <SidebarMenu>
-                    <SidebarLink onClick={toggle} to='/'>Notes</SidebarLink>
-                    <SidebarLink href='https://ogbrands.gurusuites.com/shop'>
-                        Shop
-                    </SidebarLink>
-                    <SidebarLink onClick={toggle} to='/store-locator'>Store Locator</SidebarLink>
-                    <SidebarLink onClick={toggle} to='/contact-us'>Contact Us</SidebarLink>
-                    <SidebarLink onClick={toggle} to='/distributor'>Distributor</SidebarLink>	
+                    <SidebarRow>
+											<FaLightbulb color={mode ? '#fff' : '#000'} size='25' />
+											<SidebarLink mode={mode} onClick={toggle} to='/'>Notes</SidebarLink>
+										</SidebarRow>
+                    <SidebarRow>
+											<FaBell color={mode ? '#fff' : '#000'} size='25' />
+											<SidebarLink mode={mode} onClick={toggle} to='/'>Reminders</SidebarLink>
+										</SidebarRow>	
+                    <SidebarRow>
+											<FaPencilAlt color={mode ? '#fff' : '#000'} size='25' />
+											<SidebarLink mode={mode} onClick={toggle} to='/'>Edit Labels</SidebarLink>
+										</SidebarRow>	
+                    <SidebarRow>
+											<FaTrash color={mode ? '#fff' : '#000'} size='25' />
+											<SidebarLink mode={mode} onClick={toggle} to='/'>Trash</SidebarLink>
+										</SidebarRow>		
                 </SidebarMenu>
             </SidebarContainer>
         </SideBarWrapper>

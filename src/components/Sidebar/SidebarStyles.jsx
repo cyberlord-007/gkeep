@@ -5,15 +5,16 @@ import {Link} from 'react-router-dom'
 export const SideBarWrapper = styled.aside`
     position: fixed;
     z-index: 900;
-    width: 100%;
+    width: 300px;
     height: 100%;
-    background: #0d0d0d;
+    background: ${({mode}) => (mode ? '#000' : '#fff')};
     display: grid;
     align-items: center;
-    top: ${({isOpen}) => (isOpen ? '0' : '-100%')};
-    left: 0;
+    top: 0;
+    left: ${({isOpen}) => (isOpen ? '0' : '-100%')};
     transition: 0.3s  ease-in-out;
     opacity: ${({isOpen}) => (isOpen ? '100%' : '0')};
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `
 
 export const Icon = styled.div`
@@ -27,7 +28,7 @@ export const Icon = styled.div`
 `
 
 export const CloseIcon = styled(FaTimes)`
-    color: #fff;
+    color: ${({mode}) => (mode ? '#fff' : '#000')};
 `
 
 export const SidebarContainer = styled.div`
@@ -39,10 +40,21 @@ export const SidebarMenu = styled.ul`
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6,80px);
     text-align: center;
+		padding-left: 0 !important;
 
     @media screen and (max-width: 480px) {
         grid-template-rows: repeat(6,60px);
     }
+`
+
+export const SidebarRow = styled.div`
+		width: 200px;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		text-align: center;
+		padding-left: 20px;
 `
 
 export const SidebarLink = styled(Link)`
@@ -53,8 +65,9 @@ export const SidebarLink = styled(Link)`
     text-decoration: none;
     list-style: none;
     transition: 0.2s ease-in-out;
-    color: #fff;
+    color: ${({mode}) => (mode ? '#fff' : '#000')};
     cursor: pointer;
+		padding-left: 40px;
 
     &:hover {
         color: #F2C94C;

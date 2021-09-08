@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 
 export const Nav = styled.nav`
-    background: #000;
+    background:  ${({mode}) => (mode ? '#000' : '#fff')};
     height: 86px;
     display: flex;
     align-items: center;
@@ -14,6 +14,7 @@ export const Nav = styled.nav`
     z-index: 10;
     padding-right: 50px;
     padding-left: 50px;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
     @media screen and (max-width: 960px) {
         transition: 0ms.8s all ease;
@@ -31,7 +32,7 @@ export const NavWrapper = styled.div`
 `
 
 export const NavLogo = styled(Link)`
-    color: #fff;
+    color: ${({mode}) => (mode ? '#fff' : '#000')};
     justify-self: flex-start;
     cursor: pointer;
     font-size: 1.5rem;
@@ -49,22 +50,23 @@ export const BurgerMenu = styled.div`
 		transform: translate(-100%,60%);
 		font-size: 1.8rem;
 		cursor: pointer;
-		color: #fff;
+		color: ${({mode}) => (mode ? '#fff' : '#000')};
 		margin-top: 10px;
 `
 
 export const NavRow = styled.div`
-	color: #fff;
+	color: ${({mode}) => (mode ? '#fff' : '#000')};
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	margin-left: 20px;
+	cursor: pointer;
 `
 
 export const NavTitle = styled.p`
-	color: #fff;
+	color: ${({mode}) => (mode ? '#fff' : '#000')};
 	font-size: 30px;
 	font-weight: 600;
 `

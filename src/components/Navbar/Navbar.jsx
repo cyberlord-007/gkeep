@@ -7,24 +7,30 @@ import {
 	NavRow,
 	NavTitle
 } from './NavbarStyles';
-import { FaBars,FaClipboardCheck } from 'react-icons/fa';
+import { FaBars,FaClipboardCheck,FaSun,FaRegSun } from 'react-icons/fa';
 
 
-const Navbar = () => {
+const Navbar = ({toggle,toggleDarkMode,mode}) => {
+
+	
+
 	return (
 		<>
-			<Nav>
+			<Nav mode={mode}>
 				<NavWrapper>
-					<BurgerMenu>
+					<BurgerMenu onClick={toggle} mode={mode} >
 						<FaBars />
 					</BurgerMenu>
 					<NavLogo to='/'>
 						<FaClipboardCheck color='yellow' size='40' />
 					</NavLogo>
 					<NavRow>
-						<NavTitle>
+						<NavTitle mode={mode}>
 							GKeep
 						</NavTitle>
+						{
+							mode ? <FaRegSun color={mode ? '#fff' : '#000'} onClick={toggleDarkMode} size='40' /> : <FaSun color={mode ? '#fff' : '#000'} onClick={toggleDarkMode} size='40' />
+						}
 					</NavRow>
 				</NavWrapper>
 			</Nav>
