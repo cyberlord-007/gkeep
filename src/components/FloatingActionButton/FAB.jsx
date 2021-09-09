@@ -12,7 +12,7 @@ const FAB = ({mode}) => {
 			<FaButton onClick={() => setIsOpen(true)} mode={mode}>
 				<FaPlus />
 			</FaButton>
-			<Modal open={isOpen} onClose={() => setIsOpen(false)} />
+			<Modal open={isOpen} onClose={() => setIsOpen(false)} mode={mode} />
 		</>
 	)
 }

@@ -6,7 +6,12 @@ export const ModalWrapper = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    background: #fff;
+    background: ${({mode}) => (mode ? 'rgba(255,255,255,0.1)' : '#fff')};
+		box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+		border-top: 1px solid rgba(255,255,255,0.5);
+		border-left: 1px solid rgba(255,255,255,0.5);
+		backdrop-filter: blur(5px);
+		transition: all 0.3s ease-in-out;
     z-index: 1000;
 		border-radius: 10px;
 `
@@ -22,9 +27,8 @@ export const ModalOverlay = styled.div`
 `
 
 export const ModalHeader = styled.div`
-    width: 100%;
     display: flex;
-    padding: 15px;
+    padding: 10px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -34,22 +38,48 @@ export const ModalHeader = styled.div`
 `
 
 export const ModalBody = styled.div`
-		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-start;
 		padding: 15px;
 `
 
 
+export const InputField = styled.p`
+		font-size: 18px;
+		color: ${({mode}) => (mode ? '#f7f1f1' : '#7c7979')};
+		font-weight: 600;
+`
+
+
 export const TitleInput = styled.input`
-		width: 100%;
 		height: 45px;
-		padding: 10px;
+		padding: 5px 10px;
 		font-size: 24px;
 		border: none;
+		background: ${({mode}) => (mode ? 'rgba(255,255,255,0.1)' : '#fff')};
+		color: ${({mode}) => (mode ? '#fff': '#000')};
 		border-bottom: 1px solid #000;
+
+
+		&:focus {
+			outline: none;
+		}
+`
+
+export const DescInput = styled.textarea`
+		width: 100%;
+		font-size: 15px;
+		border: none;
+		color: ${({mode}) => (mode ? '#fff': '#000')};
+		background: ${({mode}) => (mode ? 'rgba(255,255,255,0.1)' : '#fff')};
+		border-bottom: 1px solid #000;
+
+
+		&:focus {
+			outline: none;
+		}
 `
 
 
@@ -67,7 +97,6 @@ export const ModalHeaderText = styled.h1`
 `
 
 export const ModalFooter = styled.div`
-    /* width: 100%; */
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
