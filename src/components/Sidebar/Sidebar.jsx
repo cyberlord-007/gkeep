@@ -1,6 +1,6 @@
 import React from 'react'
 import { SideBarWrapper,CloseIcon,Icon,SidebarContainer,SidebarMenu,SidebarLink,SidebarRow} from './SidebarStyles'
-import {FaLightbulb,FaBell,FaThumbtack,FaCalendar,FaTrash} from 'react-icons/fa'
+import {FaLightbulb,FaThumbtack,FaCalendar,FaTrash} from 'react-icons/fa'
 
 
 const Sidebar = ({isOpen,toggle,mode}) => {

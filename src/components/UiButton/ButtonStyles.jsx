@@ -20,7 +20,7 @@ export const Button = styled.div`
     text-decoration: none;
 
     &:hover {
-        background: ${props => props.hover==true ? 'black' : props.noHover ? props.special : '#FCD804' };
-        color: ${props => props.hover==true ? 'white' : props.noHover ? '#fff' : 'black'}
+        background: ${props => props.hover===true ? 'black' : props.noHover ? props.special : '#FCD804' };
+        color: ${props => props.hover===true ? 'white' : props.noHover ? '#fff' : 'black'}
     }
 `
