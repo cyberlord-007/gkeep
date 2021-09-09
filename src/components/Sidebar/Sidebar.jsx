@@ -1,6 +1,6 @@
 import React from 'react'
 import { SideBarWrapper,CloseIcon,Icon,SidebarContainer,SidebarMenu,SidebarLink,SidebarRow} from './SidebarStyles'
-import {FaLightbulb,FaBell,FaPencilAlt,FaCalendar,FaTrash} from 'react-icons/fa'
+import {FaLightbulb,FaBell,FaThumbtack,FaCalendar,FaTrash} from 'react-icons/fa'
 
 
 const Sidebar = ({isOpen,toggle,mode}) => {
@@ -17,12 +17,12 @@ const Sidebar = ({isOpen,toggle,mode}) => {
 											<SidebarLink mode={mode} onClick={toggle} to='/'>Notes</SidebarLink>
 										</SidebarRow>
                     <SidebarRow>
-											<FaBell color={mode ? '#fff' : '#000'} size='25' />
-											<SidebarLink mode={mode} onClick={toggle} to='/'>Reminders</SidebarLink>
+											<FaThumbtack color={mode ? '#fff' : '#000'} size='25' />
+											<SidebarLink mode={mode} onClick={toggle} to='/'>Pinned</SidebarLink>
 										</SidebarRow>	
                     <SidebarRow>
-											<FaPencilAlt color={mode ? '#fff' : '#000'} size='25' />
-											<SidebarLink mode={mode} onClick={toggle} to='/'>Edit Labels</SidebarLink>
+											<FaCalendar color={mode ? '#fff' : '#000'} size='25' />
+											<SidebarLink mode={mode} onClick={toggle} to='/'>Archived</SidebarLink>
 										</SidebarRow>	
                     <SidebarRow>
 											<FaTrash color={mode ? '#fff' : '#000'} size='25' />
