@@ -4,6 +4,7 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import FAB from "./components/FloatingActionButton/FAB";
+import NotesPage from "./views/NotesPage";
 
 function App() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,13 @@ function App() {
 					mode={darkMode}
 				/>
 				<FAB mode={darkMode} />
-				<Switch></Switch>
+				<Switch>
+					<Route
+						exact
+						path="/"
+						component={() => <NotesPage mode={darkMode} />}
+					/>
+				</Switch>
 			</Router>
 		</div>
 	);

@@ -18,8 +18,13 @@ const Modal = ({ open, onClose,mode, createNote}) => {
 
 		const handleClose= (e) => {
 			e.preventDefault()
-			createNote({...inputData})
-			onClose()
+			if(Object.entries(inputData).length === 0 && inputData.constructor === Object) {
+				onClose()
+			} else {
+				createNote({...inputData})
+				onClose()
+				setInputData({})
+			}
 		}
 
     if(!open) return null
