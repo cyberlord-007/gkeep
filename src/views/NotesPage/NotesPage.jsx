@@ -52,5 +52,5 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(connect(mapStateToProps,null),firestoreConnect([
-	{collection: 'notes'}
+	{collection: 'notes',orderBy: ['createdAt','desc']}
 ]))(NotesPage)

@@ -29,7 +29,7 @@ const Navbar = ({toggle,toggleDarkMode,mode}) => {
 							GKeep
 						</NavTitle>
 						{
-							mode ? <FaRegSun color={mode ? '#fff' : '#000'} onClick={toggleDarkMode} size='40' /> : <FaSun color={mode ? '#fff' : '#000'} onClick={toggleDarkMode} size='40' />
+							mode ? <FaRegSun color={mode ? '#fff' : '#000'} onClick={toggleDarkMode} size={window.screen.width < 480 ? '28' : '40'} /> : <FaSun color={mode ? '#fff' : '#000'} onClick={toggleDarkMode} size={window.screen.width < 480 ? '28' : '40'} />
 						}
 					</NavRow>
 				</NavWrapper>

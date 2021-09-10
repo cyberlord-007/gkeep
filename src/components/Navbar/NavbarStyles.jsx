@@ -29,6 +29,10 @@ export const NavWrapper = styled.div`
     width: 100%;
     padding: 0 24px;
   
+
+		@media screen and (max-width: 480px) {
+			padding: 0;
+		}
 `
 
 export const NavLogo = styled(Link)`
@@ -63,6 +67,7 @@ export const NavRow = styled.div`
 	align-items: center;
 	margin-left: 20px;
 	cursor: pointer;
+
 `
 
 export const NavTitle = styled.p`
