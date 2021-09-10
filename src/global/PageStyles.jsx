@@ -51,3 +51,17 @@ export const SearchBar = styled.input`
 		}
 
 `
+
+export const PageError = styled.div`
+		width: 100%;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+`
+
+export const ErrorText = styled.strong`
+		font-size: 28px;
+		padding-left: 10px;
+		color: ${({mode}) => (mode ? '#dad6d6' : '#7c7979')};
+`

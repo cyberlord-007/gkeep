@@ -3,11 +3,12 @@ import { archiveNotes } from '../../actions/archiveNote'
 import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from '../Notes/NoteStyles'
 import {BiArchiveIn} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
+import {FaExclamationCircle} from 'react-icons/fa'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import {AiOutlinePushpin} from 'react-icons/ai'
-import { PageTitleRow,SectionTitle} from '../../global/PageStyles'
+import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageStyles'
 
 
 
@@ -43,12 +44,16 @@ const Archived = ({mode,notes,archiveNotes}) => {
 			
 				<NotesWrapper>
 					{
+						Object.values(archivedNotes).length === 0 ?
+						<PageError>
+							<FaExclamationCircle size='40' color={mode ? '#dad6d6' : '#7c7979'} />
+							<ErrorText mode={mode}>No archived notes found</ErrorText>
+						</PageError> :
 						Object.keys(archivedNotes).map((noteDoc) => (
 							<NotesCard key={archivedNotes[noteDoc].title}>
 								<CardHeader>
 									<CardTitle>{archivedNotes[noteDoc].title}</CardTitle>
 									<Actions>
-										
 										{archivedNotes[noteDoc].archived ? <IoMdArchive onClick={() =>handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />}
 									</Actions>
 								</CardHeader>

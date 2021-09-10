@@ -45,26 +45,26 @@ const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
 					{
 						notes && Object.keys(notes)?.map((noteDoc,idx) => (
 							<>
-							{notes[noteDoc].archived?null:
+							{notes[noteDoc].archived ? null:
 								<NotesCard key={notes[noteDoc].title}>
-								<CardHeader>
-									<CardTitle>{notes[noteDoc].title}</CardTitle>
-									<Actions>
-										{
-											notes[noteDoc].pinned ? <AiFillPushpin onClick={()=>handlePinned(noteDoc)} size='40' /> : <AiOutlinePushpin onClick={()=>handlePinned(noteDoc)} size='40' />
-										}
-										{
-											notes[noteDoc].archived ? <IoMdArchive onClick={()=> handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />
-										}
-									</Actions>
-								</CardHeader>
-								<GreyLine></GreyLine>
-								<CardBody onClick={() => handleClick(notes[noteDoc],noteDoc)}>
-									<NoteDesc mode={mode}>
-										{notes[noteDoc].body}
-									</NoteDesc>
-								</CardBody>
-							</NotesCard>
+									<CardHeader>
+										<CardTitle>{notes[noteDoc].title}</CardTitle>
+										<Actions>
+											{
+												notes[noteDoc].pinned ? <AiFillPushpin onClick={()=>handlePinned(noteDoc)} size='40' /> : <AiOutlinePushpin onClick={()=>handlePinned(noteDoc)} size='40' />
+											}
+											{
+												notes[noteDoc].archived ? <IoMdArchive onClick={()=> handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />
+											}
+										</Actions>
+									</CardHeader>
+									<GreyLine></GreyLine>
+									<CardBody onClick={() => handleClick(notes[noteDoc],noteDoc)}>
+										<NoteDesc mode={mode}>
+											{notes[noteDoc].body}
+										</NoteDesc>
+									</CardBody>
+								</NotesCard>
 							}
 							</>	
 						))

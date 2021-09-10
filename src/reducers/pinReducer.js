@@ -1,8 +1,8 @@
-import { PIN_NOTES } from "../actions/actionTypes";
+import { PIN_NOTES, SET_PINNED } from "../actions/actionTypes";
 
 const initState = {};
 
-const noteReducer = (state = initState, action) => {
+const pinReducer = (state = initState, action) => {
 	switch (action.type) {
 		case PIN_NOTES:
 			return state;
@@ -11,4 +11,4 @@ const noteReducer = (state = initState, action) => {
 	}
 };
 
-export default noteReducer;
+export default pinReducer;

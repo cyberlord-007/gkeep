@@ -2,18 +2,18 @@ import React,{useState,useEffect} from 'react'
 import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from '../Notes/NoteStyles'
 import {BiArchiveIn} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
+import {FaExclamationCircle} from 'react-icons/fa'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { archiveNotes } from '../../actions/archiveNote'
 import { pinNotes } from '../../actions/pinNotes'
 import {AiOutlinePushpin,AiFillPushpin} from 'react-icons/ai'
-import { PageTitleRow,SectionTitle} from '../../global/PageStyles'
+import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageStyles'
 import Modal from '../Modal/Modal'
 
 
-
-const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
+const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) => {
 
 
 	const [isOpen,setIsOpen] = useState(false)
@@ -83,8 +83,7 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
 									</NoteDesc>
 								</CardBody>
 							</NotesCard>
-						
-						))
+						)) 
 					}
 				</NotesWrapper>
 			</NotesContainer>
@@ -104,7 +103,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		pinNotes: (note) => dispatch(pinNotes(note)),
-		archiveNotes: (note) => dispatch(archiveNotes(note))
+		archiveNotes: (note) => dispatch(archiveNotes(note)),
 	}
 }
 

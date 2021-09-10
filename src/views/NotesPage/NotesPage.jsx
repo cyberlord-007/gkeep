@@ -45,7 +45,7 @@ const NotesPage = ({mode,notes}) => {
 }
 
 const mapStateToProps = (state) => {
-	console.log('state',state)
+	console.log('state with pinned',state)
 	return {
 		notes: state.firestore.data.notes
 	}
