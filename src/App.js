@@ -37,7 +37,11 @@ function App() {
 							path="/"
 							component={() => <NotesPage mode={darkMode} />}
 						/>
-						<Route exact path="/pinned" component={PinnedPage} />
+						<Route
+							exact
+							path="/pinned"
+							component={() => <PinnedPage mode={darkMode} />}
+						/>
 					</Switch>
 				</Router>
 			</PageContainer>

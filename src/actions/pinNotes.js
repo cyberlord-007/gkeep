@@ -1,10 +1,14 @@
 import { PIN_NOTES } from "./actionTypes";
 
-export const pinNotes = (note) => {
+export const pinNotes = ({ noteDoc, note }) => {
+	console.log(note);
 	return async (dispatch, getState, { getFirebase, getFirestore }) => {
 		const fs = getFirestore();
 		try {
-			await fs.collection("pinned").add({ ...note, pinnedAt: new Date() });
+			await fs.update(
+				{ collection: "notes", doc: noteDoc },
+				{ ...note, pinned: !note.pinned }
+			);
 			dispatch({ type: PIN_NOTES, note });
 		} catch (err) {
 			console.log(err);
