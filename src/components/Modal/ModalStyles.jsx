@@ -61,6 +61,7 @@ export const TitleInput = styled.input`
 		background: ${({mode}) => (mode ? 'rgba(255,255,255,0.1)' : '#fff')};
 		color: ${({mode}) => (mode ? '#fff': '#000')};
 		border-bottom: 1px solid #000;
+		margin-bottom: 20px;
 
 
 		&:focus {

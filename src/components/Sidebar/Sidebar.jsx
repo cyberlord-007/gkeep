@@ -18,7 +18,7 @@ const Sidebar = ({isOpen,toggle,mode}) => {
 										</SidebarRow>
                     <SidebarRow>
 											<FaThumbtack color={mode ? '#fff' : '#000'} size='25' />
-											<SidebarLink mode={mode} onClick={toggle} to='/'>Pinned</SidebarLink>
+											<SidebarLink mode={mode} onClick={toggle} to='/pinned'>Pinned</SidebarLink>
 										</SidebarRow>	
                     <SidebarRow>
 											<FaCalendar color={mode ? '#fff' : '#000'} size='25' />

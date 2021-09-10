@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const NotesContainer = styled.div`
-		background: ${({mode}) => (mode ? 'rgba(0,0,0,.7)': '#fff')};
+		/* background: ${({mode}) => (mode ? '#202124': '#fff')}; */
 `
 
 export const NotesWrapper = styled.div`
@@ -10,6 +10,18 @@ export const NotesWrapper = styled.div`
 		display: grid;
 		grid-template-columns: repeat(auto-fit,minmax(20rem,1fr));
 		justify-content: center;
+`
+
+export const Actions = styled.div`
+		width: 90px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding-right: 30px;
+		visibility: hidden;
+		opacity: 0;
+		transition: all 0.3s ease-in-out;
 `
 
 export const NotesCard = styled.div`
@@ -22,32 +34,31 @@ export const NotesCard = styled.div`
 		margin: 15px;
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 		transition: all 0.3s ease-in-out;
+
+
+		&:hover ${Actions} {
+			visibility: visible;
+			opacity: 1;
+		}
 `
 
 export const CardHeader = styled.div`
-		max-height: 40px;
+		max-height: fit-content;
 		width: 100%;
 		padding: 10px;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 15px;
+		margin-bottom: 10px;
 `
 
-export const Actions = styled.div`
-		width: 90px;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		padding-right: 30px;
-`
 
 export const CardTitle = styled.h1`
-		font-size: 40px;
+		font-size: 28px;
 		color: #000;
 		padding-left: 15px;
+		font-weight: 450;
 
 
 		@media screen and (max-width: 480px) {
@@ -66,11 +77,16 @@ export const CardBody = styled.div`
 		width: 100%;
 		height: 100%;
 		display: flex;	
-		padding-left: 20px;
+		padding:0 10px 10px 10px;
+		margin-bottom: 20px;
+		overflow:auto;
 `
 
 export const NoteDesc = styled.p`
 		font-size: 18px;
+		line-height: 150%;
+		word-spacing: 1px;
 		color: ${({mode}) => (mode ? '#dad6d6' : '#7c7979')};
-		font-weight: 600;
 `
+
+

@@ -2,12 +2,13 @@ import React,{useState} from 'react'
 import { connect } from 'react-redux'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
+import {pinNotes} from '../../actions/pinNotes'
 import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from './NoteStyles'
 import {AiFillPushpin,AiOutlinePushpin} from 'react-icons/ai'
 import {BiArchiveIn} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
 
-const Notes = ({mode,notes}) => {
+const Notes = ({mode,notes,pinNotes}) => {
 
 	const [pinned,setPinned] = useState({})
 	const [archived,setArchived] = useState({})
@@ -17,6 +18,7 @@ const Notes = ({mode,notes}) => {
 			...pinned,
 			[idx]: !pinned[idx]
 		}))
+		pinNotes({...notes[idx]})
 	}
 
 	const handleArchived = (idx) => () => {
@@ -62,6 +64,12 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default compose(connect(mapStateToProps),firestoreConnect([
+const mapDispatchToProps = (dispatch) => {
+	return {
+		pinNotes: (note) => dispatch(pinNotes(note))
+	}
+}
+
+export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
 	{collection: 'notes'}
 ]))(Notes)
