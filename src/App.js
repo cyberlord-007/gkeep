@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import FAB from "./components/FloatingActionButton/FAB";
 import NotesPage from "./views/NotesPage/NotesPage";
 import PinnedPage from "./views/PinnedPage/PinnedPage";
+import ArchivedPage from "./views/ArchivedPage/ArchivedPage";
 
 function App() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +42,11 @@ function App() {
 							exact
 							path="/pinned"
 							component={() => <PinnedPage mode={darkMode} />}
+						/>
+						<Route
+							exact
+							path="/archived"
+							component={() => <ArchivedPage mode={darkMode} />}
 						/>
 					</Switch>
 				</Router>

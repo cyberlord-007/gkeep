@@ -2,8 +2,8 @@ import React,{useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
-import { PageTitleRow,SectionTitle,SearchWrap,SearchBar} from '../../global/PageStyles'
-import {AiOutlinePushpin} from 'react-icons/ai'
+import { SearchWrap,SearchBar} from '../../global/PageStyles'
+
 import Notes from '../../components/Notes/Notes'
 import Pinned from '../../components/Pinned/Pinned'
 
@@ -21,7 +21,7 @@ const NotesPage = ({mode,notes}) => {
 	const searchNotes = (_searchQuery) => {
 		if(_searchQuery && _searchQuery.trim()) {
 			const filteredResults = Object.values(notes).filter(note => (
-				note.title.toLowerCase().includes(_searchQuery.toLowerCase()) || note.body.toLowerCase().includes(_searchQuery.toLowerCase())
+				note.title?.toLowerCase().includes(_searchQuery?.toLowerCase()) || note.body?.toLowerCase().includes(_searchQuery?.toLowerCase())
 			))
 			setNoteState(filteredResults)
 		}
@@ -38,12 +38,8 @@ const NotesPage = ({mode,notes}) => {
 			<SearchWrap>
 				<SearchBar onChange={handleChange} type='text' name='search' value={searchQuery} placeholder='Search...' />
 			</SearchWrap>
+			<Pinned mode={mode} queriedNotes={noteState} />
 			<Notes mode={mode} notes={noteState} />
-			<PageTitleRow>
-				<AiOutlinePushpin size='35' color={mode ? '#fff' : '#000'}/>
-				<SectionTitle mode={mode}>Pinned</SectionTitle>
-			</PageTitleRow>
-			<Pinned mode={mode} />
 		</>
 	)
 }

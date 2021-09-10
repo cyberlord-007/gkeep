@@ -1,7 +1,6 @@
 import { PIN_NOTES } from "./actionTypes";
 
 export const pinNotes = ({ noteDoc, note }) => {
-	console.log(note);
 	return async (dispatch, getState, { getFirebase, getFirestore }) => {
 		const fs = getFirestore();
 		try {

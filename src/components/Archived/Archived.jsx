@@ -1,34 +1,28 @@
 import React,{useState,useEffect} from 'react'
+import { archiveNotes } from '../../actions/archiveNote'
 import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from '../Notes/NoteStyles'
 import {BiArchiveIn} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
-import { archiveNotes } from '../../actions/archiveNote'
-import { pinNotes } from '../../actions/pinNotes'
-import {AiOutlinePushpin,AiFillPushpin} from 'react-icons/ai'
+import {AiOutlinePushpin} from 'react-icons/ai'
 import { PageTitleRow,SectionTitle} from '../../global/PageStyles'
 
 
 
-const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
+const Archived = ({mode,notes,archiveNotes}) => {
 
 
 	const [_notes, setNotes] = useState(notes)
-	const [pinnedNotes,setPinnedNotes] = useState(null)
+	const [archivedNotes,setArchivedNotes] = useState([])
 
 	useEffect(()=>{
-		if(queriedNotes){
-			setNotes(queriedNotes)
-		} else {
-			setNotes(notes)
-		}
-		
-	},[notes,queriedNotes])
+		setNotes(notes)
+	},[notes])
 
 	useEffect(() => {
-		_notes && setPinnedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note]) => note.pinned === true && note.archived === false)))
+		_notes && setArchivedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note])=>note.archived===true)))
 	},[_notes])
 
 	const handleArchived = (noteDoc) => {
@@ -36,16 +30,11 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
 		archiveNotes({noteDoc,note})
 	}
 
-	const handlePinned = (noteDoc) => {
-		const note = notes[noteDoc]
-		pinNotes({noteDoc,note});
-	}
-
 	return (
 		<>
 			<NotesContainer mode={mode}>
 				{
-					pinnedNotes && Object.keys(pinnedNotes).length > 0 && 
+					_notes?.length > 0 && 
 					<PageTitleRow>
 						<AiOutlinePushpin size='35' color={mode ? '#fff' : '#000'}/>
 						<SectionTitle mode={mode}>Pinned</SectionTitle>
@@ -54,23 +43,22 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
 			
 				<NotesWrapper>
 					{
-						pinnedNotes && Object.entries(pinnedNotes).map(([noteDoc,note],idx) => (
-							<NotesCard key={note.title}>
+						Object.keys(archivedNotes).map((noteDoc) => (
+							<NotesCard key={archivedNotes[noteDoc].title}>
 								<CardHeader>
-									<CardTitle>{note.title}</CardTitle>
+									<CardTitle>{archivedNotes[noteDoc].title}</CardTitle>
 									<Actions>
-										{note.pinned ? <AiFillPushpin onClick={() => handlePinned(noteDoc)} size='40' /> : <AiOutlinePushpin onClick={() => handlePinned(noteDoc)} size='40' />}
-										{note.archived ? <IoMdArchive onClick={() => handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />}
+										
+										{archivedNotes[noteDoc].archived ? <IoMdArchive onClick={() =>handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />}
 									</Actions>
 								</CardHeader>
 								<GreyLine></GreyLine>
 								<CardBody>
 									<NoteDesc mode={mode}>
-										{note.body}
+										{archivedNotes[noteDoc].body}
 									</NoteDesc>
 								</CardBody>
 							</NotesCard>
-						
 						))
 					}
 				</NotesWrapper>
@@ -86,14 +74,12 @@ const mapStateToProps = (state) => {
 	}
 }
 
-
 const mapDispatchToProps = (dispatch) => {
 	return {
-		pinNotes: (note) => dispatch(pinNotes(note)),
 		archiveNotes: (note) => dispatch(archiveNotes(note))
 	}
 }
 
 export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
 	{collection: 'notes'}
-]))(Pinned)
+]))(Archived)

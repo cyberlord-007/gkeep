@@ -22,7 +22,7 @@ const Sidebar = ({isOpen,toggle,mode}) => {
 										</SidebarRow>	
                     <SidebarRow>
 											<FaCalendar color={mode ? '#fff' : '#000'} size='25' />
-											<SidebarLink mode={mode} onClick={toggle} to='/'>Archived</SidebarLink>
+											<SidebarLink mode={mode} onClick={toggle} to='/archived'>Archived</SidebarLink>
 										</SidebarRow>	
                     <SidebarRow>
 											<FaTrash color={mode ? '#fff' : '#000'} size='25' />

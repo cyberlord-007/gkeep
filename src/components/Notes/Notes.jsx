@@ -1,26 +1,14 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-
 import {pinNotes} from '../../actions/pinNotes'
 import {archiveNotes} from '../../actions/archiveNote'
 import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from './NoteStyles'
+import { PageTitleRow,SectionTitle } from '../../global/PageStyles'
 import {AiFillPushpin,AiOutlinePushpin} from 'react-icons/ai'
-import {BiArchiveIn} from 'react-icons/bi'
+import {BiArchiveIn,BiNotepad} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
 
 const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
-
-	const [pinned,setPinned] = useState({})
-	const [archived,setArchived] = useState({})
-
-	// const handlePinned = (idx) => () => {
-	// 	setPinned(pinned => ({
-	// 		...pinned,
-	// 		[idx]: !pinned[idx]
-	// 	}))
-	// 	console.log({pinned})
-	// 	pinNotes({...notes[idx]})
-	// }
 
 	const handlePinned = (noteDoc) => {
 		const note = notes[noteDoc]
@@ -28,26 +16,33 @@ const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
 	}
 
 
-	const handleArchived = (idx) => () => {
-		setArchived(archived => ({
-			...archived,
-			[idx]: !archived[idx]
-		}))
-		archiveNotes({...notes[idx]})
+	const handleArchived = (noteDoc) => {
+		const note = notes[noteDoc]
+		archiveNotes({noteDoc,note})
 	}
 
 	return (
 		<>
 			<NotesContainer mode={mode}>
+				<PageTitleRow>
+					<BiNotepad size='35' color={mode ? '#fff' : '#000'}/>
+					<SectionTitle mode={mode}>Your Notes</SectionTitle>
+				</PageTitleRow>
 				<NotesWrapper>
 					{
 						notes && Object.keys(notes)?.map((noteDoc,idx) => (
-							<NotesCard key={notes[noteDoc].title}>
+							<>
+							{notes[noteDoc].archived?null:
+								<NotesCard key={notes[noteDoc].title}>
 								<CardHeader>
 									<CardTitle>{notes[noteDoc].title}</CardTitle>
 									<Actions>
-										{notes[noteDoc].pinned ? <AiFillPushpin onClick={()=>handlePinned(noteDoc)} size='40' /> : <AiOutlinePushpin onClick={()=>handlePinned(noteDoc)} size='40' />}
-										{notes[noteDoc].archived ? <IoMdArchive onClick={handleArchived(idx)} size='40' />  : <BiArchiveIn onClick={handleArchived(idx)} size='40' />}
+										{
+											notes[noteDoc].pinned ? <AiFillPushpin onClick={()=>handlePinned(noteDoc)} size='40' /> : <AiOutlinePushpin onClick={()=>handlePinned(noteDoc)} size='40' />
+										}
+										{
+											notes[noteDoc].archived ? <IoMdArchive onClick={()=> handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />
+										}
 									</Actions>
 								</CardHeader>
 								<GreyLine></GreyLine>
@@ -57,6 +52,8 @@ const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
 									</NoteDesc>
 								</CardBody>
 							</NotesCard>
+							}
+							</>	
 						))
 					}
 				</NotesWrapper>

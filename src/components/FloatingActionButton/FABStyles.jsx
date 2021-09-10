@@ -18,6 +18,7 @@ export const FaButton = styled.div`
    text-align: center;
    line-height: 70px;
 	 cursor: pointer;
+	 z-index: 100;
 
 	 &:hover {
 		 box-shadow: 0 6px 14px 0 #666;
