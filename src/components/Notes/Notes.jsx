@@ -1,14 +1,19 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { connect } from 'react-redux'
 import {pinNotes} from '../../actions/pinNotes'
 import {archiveNotes} from '../../actions/archiveNote'
 import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from './NoteStyles'
 import { PageTitleRow,SectionTitle } from '../../global/PageStyles'
+import Modal from '../Modal/Modal'
 import {AiFillPushpin,AiOutlinePushpin} from 'react-icons/ai'
 import {BiArchiveIn,BiNotepad} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
 
 const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
+
+
+	const [isOpen,setIsOpen] = useState(false)
+	const [clickedCard,setClickedCard] = useState({})
 
 	const handlePinned = (noteDoc) => {
 		const note = notes[noteDoc]
@@ -19,6 +24,14 @@ const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
 	const handleArchived = (noteDoc) => {
 		const note = notes[noteDoc]
 		archiveNotes({noteDoc,note})
+	}
+
+	const handleClick = (note,noteDoc) => {
+		setIsOpen(true)
+		setClickedCard({
+			noteData: {...note},
+			noteDoc
+		})
 	}
 
 	return (
@@ -46,7 +59,7 @@ const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
 									</Actions>
 								</CardHeader>
 								<GreyLine></GreyLine>
-								<CardBody>
+								<CardBody onClick={() => handleClick(notes[noteDoc],noteDoc)}>
 									<NoteDesc mode={mode}>
 										{notes[noteDoc].body}
 									</NoteDesc>
@@ -58,6 +71,7 @@ const Notes = ({mode,notes,pinNotes,archiveNotes}) => {
 					}
 				</NotesWrapper>
 			</NotesContainer>
+			<Modal open={isOpen} onClose={() => setIsOpen(false)} mode={mode} type='edit' data={clickedCard}/>
 		</>
 	)
 }

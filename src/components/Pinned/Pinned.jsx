@@ -9,14 +9,19 @@ import { archiveNotes } from '../../actions/archiveNote'
 import { pinNotes } from '../../actions/pinNotes'
 import {AiOutlinePushpin,AiFillPushpin} from 'react-icons/ai'
 import { PageTitleRow,SectionTitle} from '../../global/PageStyles'
+import Modal from '../Modal/Modal'
 
 
 
 const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
 
 
+	const [isOpen,setIsOpen] = useState(false)
+
+
 	const [_notes, setNotes] = useState(notes)
 	const [pinnedNotes,setPinnedNotes] = useState(null)
+	const [clickedCard,setClickedCard] = useState({})
 
 	useEffect(()=>{
 		if(queriedNotes){
@@ -39,6 +44,14 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
 	const handlePinned = (noteDoc) => {
 		const note = notes[noteDoc]
 		pinNotes({noteDoc,note});
+	}
+
+	const handleClick = (note,noteDoc) => {
+		setIsOpen(true)
+		setClickedCard({
+			noteData: {...note},
+			noteDoc
+		})
 	}
 
 	return (
@@ -64,7 +77,7 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
 									</Actions>
 								</CardHeader>
 								<GreyLine></GreyLine>
-								<CardBody>
+								<CardBody onClick={() => handleClick(note,noteDoc)}>
 									<NoteDesc mode={mode}>
 										{note.body}
 									</NoteDesc>
@@ -75,6 +88,7 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes}) => {
 					}
 				</NotesWrapper>
 			</NotesContainer>
+			<Modal open={isOpen} onClose={() => setIsOpen(false)} mode={mode} type='edit' data={clickedCard}/>
 		</>
 	)
 }
