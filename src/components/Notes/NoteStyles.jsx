@@ -22,6 +22,12 @@ export const Actions = styled.div`
 		visibility: hidden;
 		opacity: 0;
 		transition: all 0.3s ease-in-out;
+
+
+		@media screen and (max-width: 480px) {
+			visibility: visible;
+			opacity: 1;
+		}
 `
 
 export const NotesCard = styled.div`
