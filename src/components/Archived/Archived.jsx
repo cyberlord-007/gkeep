@@ -46,7 +46,7 @@ const Archived = ({mode,notes,archiveNotes}) => {
 					{
 						Object.values(archivedNotes).length === 0 ?
 						<PageError>
-							<FaExclamationCircle size='40' color={mode ? '#dad6d6' : '#7c7979'} />
+							<FaExclamationCircle size={window.screen.width < 480 ? '25' : '40'} color={mode ? '#dad6d6' : '#7c7979'} />
 							<ErrorText mode={mode}>No archived notes found</ErrorText>
 						</PageError> :
 						Object.keys(archivedNotes).map((noteDoc) => (
@@ -86,5 +86,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
-	{collection: 'notes'}
+	{collection: 'notes',orderBy: ['createdAt','asc']}
 ]))(Archived)

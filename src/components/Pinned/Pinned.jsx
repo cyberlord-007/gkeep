@@ -67,6 +67,11 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) 
 			
 				<NotesWrapper>
 					{
+						pinnedNotes && Object.keys(pinnedNotes).length === 0 ?
+						<PageError>
+							<FaExclamationCircle size={window.screen.width < 480 ? '25' : '40'} color={mode ? '#dad6d6' : '#7c7979'} />
+							<ErrorText mode={mode}>No pinned notes found</ErrorText>
+						</PageError> :
 						pinnedNotes && Object.entries(pinnedNotes).map(([noteDoc,note],idx) => (
 							<NotesCard key={note.title}>
 								<CardHeader>
@@ -108,5 +113,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
-	{collection: 'notes'}
+	{collection: 'notes',orderBy: ['createdAt','asc']}
 ]))(Pinned)
