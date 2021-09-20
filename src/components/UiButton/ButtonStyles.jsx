@@ -14,13 +14,13 @@ export const Button = styled.div`
     height: ${props => props.height ? props.height : '35px'};
     font-size: ${props => props.fontSize ? props.fontSize : '16px'};
     font-weight: 500;
-    background: ${props => props.primary  ? '#FCD804' :  props.special ? '#000000' : props.secondary ? '#c2bdbd' : '#fff'};
+    background: ${props => props.primary  ? '#636e72' :  props.special ? '#000000' : props.secondary ? '#c2bdbd' : '#fff'};
     color: ${props => props.color ? props.color : 'black'};
     cursor: pointer;
     text-decoration: none;
 
     &:hover {
-        background: ${props => props.hover===true ? 'black' : props.noHover ? props.special : '#FCD804' };
+        background: ${props => props.hover===true ? 'black' : props.noHover ? props.special : '#636e72' };
         color: ${props => props.hover===true ? 'white' : props.noHover ? '#fff' : 'black'}
     }
 `

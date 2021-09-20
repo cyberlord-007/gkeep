@@ -21,18 +21,10 @@ const Archived = ({mode,notes,archiveNotes,deleteNotes,queriedNotes=null}) => {
 	const [archivedNotes,setArchivedNotes] = useState([])
 	
 	
-	useEffect(()=>{
-		if(queriedNotes){
-			setNotes(queriedNotes)
-		} else {
-			setNotes(notes)
-		}
-		
-	},[notes,queriedNotes])
 
 	useEffect(() => {
-		_notes && setArchivedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note])=>note?.archived===true)))
-	},[_notes])
+		notes && setArchivedNotes(Object.fromEntries(Object.entries(notes).filter(([noteDoc,note])=>note?.archived===true)))
+	},[notes])
 
 	const handleArchived = (noteDoc) => {
 		const note = notes[noteDoc]
@@ -47,10 +39,10 @@ const Archived = ({mode,notes,archiveNotes,deleteNotes,queriedNotes=null}) => {
 		<>
 			<NotesContainer mode={mode}>
 				{
-					_notes?.length > 0 && 
+					archiveNotes?.length > 0 && 
 					<PageTitleRow>
-						<AiOutlinePushpin size='35' color={mode ? '#fff' : '#000'}/>
-						<SectionTitle mode={mode}>Pinned</SectionTitle>
+						<IoMdArchive size='35' color={mode ? '#fff' : '#000'}/>
+						<SectionTitle mode={mode}>Archived</SectionTitle>
 					</PageTitleRow> 
 				}
 			
