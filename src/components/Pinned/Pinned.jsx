@@ -18,12 +18,9 @@ import Modal from '../Modal/Modal'
 const Pinned = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 
 
-	const [isOpen,setIsOpen] = useState(false)
-
-
-
+	const [isOpen,setIsOpen] = useState(localStorage.getItem('pinnedNote'));
 	const [pinnedNotes,setPinnedNotes] = useState(null)
-	const [clickedCard,setClickedCard] = useState({})
+	const [clickedCard,setClickedCard] = useState({...JSON.parse(localStorage.getItem('pinnedNote'))});
 
 
 
@@ -42,12 +39,18 @@ const Pinned = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 	}
 
 	const handleClick = (note,noteDoc) => {
-		setIsOpen(true)
-		setClickedCard({
+		localStorage.setItem('pinnedNote',JSON.stringify({
 			noteData: {...note},
 			noteDoc
-		})
+		}));
+		setIsOpen(true);
+		setClickedCard({...JSON.parse(localStorage.getItem('pinnedNote'))});
 	}
+
+	const onClose = () => {
+		setIsOpen(false);
+		localStorage.removeItem('pinnedNote');
+}
 
 	const handleDelete = (noteDoc) => {
 		deleteNotes({noteDoc})
@@ -98,7 +101,7 @@ const Pinned = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 					}
 				</NotesWrapper>
 			</NotesContainer>
-			<Modal open={isOpen} onClose={() => setIsOpen(false)} mode={mode} type='edit' data={clickedCard}/>
+			<Modal open={isOpen} onClose={onClose} mode={mode} type='edit' data={clickedCard}/>
 		</>
 	)
 }

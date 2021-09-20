@@ -32,7 +32,7 @@ export const ModalHeader = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #FCD804;
+    background-color: #636e72;
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
 `
