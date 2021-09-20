@@ -15,28 +15,21 @@ import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageS
 import Modal from '../Modal/Modal'
 
 
-const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,deleteNotes}) => {
+const Pinned = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 
 
 	const [isOpen,setIsOpen] = useState(false)
 
 
-	const [_notes, setNotes] = useState(notes)
+
 	const [pinnedNotes,setPinnedNotes] = useState(null)
 	const [clickedCard,setClickedCard] = useState({})
 
-	useEffect(()=>{
-		if(queriedNotes){
-			setNotes(queriedNotes)
-		} else {
-			setNotes(notes)
-		}
-		
-	},[notes,queriedNotes])
+
 
 	useEffect(() => {
-		_notes && setPinnedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note]) => note?.pinned === true && note?.archived === false)))
-	},[_notes])
+		notes && setPinnedNotes(Object.fromEntries(Object.entries(notes).filter(([noteDoc,note]) => note?.pinned === true && note?.archived === false)))
+	},[notes])
 
 	const handleArchived = (noteDoc) => {
 		const note = notes[noteDoc]
@@ -110,12 +103,7 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,deleteNotes}
 	)
 }
 
-const mapStateToProps = (state) => {
-	console.log('state..',state)
-	return {
-		notes: state.firestore.data.notes
-	}
-}
+
 
 
 const mapDispatchToProps = (dispatch) => {
@@ -126,6 +114,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
-	{collection: 'notes',orderBy: ['createdAt','asc']}
-]))(Pinned)
+export default connect(null,mapDispatchToProps)(Pinned)

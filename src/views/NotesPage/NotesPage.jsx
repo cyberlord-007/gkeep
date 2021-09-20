@@ -7,13 +7,9 @@ import Search from '../../components/Search/Search'
 import Notes from '../../components/Notes/Notes'
 import Pinned from '../../components/Pinned/Pinned'
 
-const NotesPage = ({mode,notes,setNotes,noteState,setQuery,searchQuery,searchNotes,allNotes,setAllNotes}) => {
+const NotesPage = ({mode,noteState,setQuery,searchQuery,searchNotes,allNotes,setAllNotes}) => {
 
 	
-	useEffect(() => {
-		setAllNotes({...notes})
-		setNotes({...notes});
-	}, [notes]);
 
 
 
@@ -25,16 +21,14 @@ const NotesPage = ({mode,notes,setNotes,noteState,setQuery,searchQuery,searchNot
 	return (
 		<>
 			<Search change={handleChange} value={searchQuery}/>
-			<Pinned mode={mode} queriedNotes={noteState} />
+			<Pinned mode={mode} notes={noteState} />
 			<Notes mode={mode} notes={noteState} />
 		</>
 	)
 }
 
 const mapStateToProps = (state) => {
-	console.log('state with pinned',state)
 	return {
-		notes: state.firestore.data.notes,
 		noteState: state.note.notes,
 		searchQuery: state.note.searchQuery,
 		allNotes: state.note.allNotes
@@ -50,6 +44,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
-	{collection: 'notes',orderBy: ['createdAt','asc']}
-]))(NotesPage)
+export default connect(mapStateToProps,mapDispatchToProps)(NotesPage)

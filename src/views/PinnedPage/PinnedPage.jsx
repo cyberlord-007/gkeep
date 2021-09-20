@@ -1,11 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { searchNotes, setQuery } from '../../actions/setNotes'
+import { searchNotes, setQuery,setAllNotes,setNotes } from '../../actions/setNotes'
 import Pinned from '../../components/Pinned/Pinned'
 import Search from '../../components/Search/Search'
 
 const PinnedPage = ({mode,setQuery,searchQuery,searchNotes,noteState}) => {
 
+
+	
 
 	const handleChange = (e) => {
 		setQuery(e.target.value)
@@ -15,22 +17,26 @@ const PinnedPage = ({mode,setQuery,searchQuery,searchNotes,noteState}) => {
 	return (
 		<>
 			<Search change={handleChange} value={searchQuery}/>
-			<Pinned mode={mode} queriedNotes={noteState}/>
+			<Pinned mode={mode} notes={noteState}/>
 		</>
 	)
 }
 
 const mapStateToProps = (state) => {
+	console.log('state with pinned',state)
 	return {
-		searchQuery: state.note.searchQuery,
 		noteState: state.note.notes,
+		searchQuery: state.note.searchQuery,
+		allNotes: state.note.allNotes
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
+		setNotes: (notes) => dispatch(setNotes(notes)),
 		setQuery: (query) => dispatch(setQuery(query)),
-		searchNotes: (query) => dispatch(searchNotes(query))
+		searchNotes: (query) => dispatch(searchNotes(query)),
+		setAllNotes: (notes) => dispatch(setAllNotes(notes))
 	}
 }
 
