@@ -81,12 +81,12 @@ const Archived = ({mode,notes,archiveNotes,deleteNotes,queriedNotes=null}) => {
 	)
 }
 
-const mapStateToProps = (state) => {
-	console.log('state..',state)
-	return {
-		notes: state.firestore.data.notes
-	}
-}
+// const mapStateToProps = (state) => {
+// 	console.log('state..',state)
+// 	return {
+// 		notes: state.firestore.data.notes
+// 	}
+// }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -95,6 +95,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
-	{collection: 'notes',orderBy: ['createdAt','asc']}
-]))(Archived)
+export default connect(null,mapDispatchToProps)(Archived)

@@ -15,7 +15,7 @@ const ArchivedPage = ({mode,setQuery,searchQuery,searchNotes,noteState}) => {
 	return (
 		<>
 			<Search change={handleChange} value={searchQuery}/>
-			<Archived mode={mode} queriedNotes={noteState}/>
+			<Archived mode={mode} notes={noteState}/>
 		</>
 	)
 }

@@ -34,10 +34,10 @@ export const searchNotes = (_searchQuery) => {
 	return (dispatch, getState) => {
 		const state = getState();
 		const { allNotes } = state.note;
-		// if (!_searchQuery) {
-		// 	return;
-		// }
-		if (_searchQuery && _searchQuery.trim()) {
+		if (!_searchQuery) {
+			dispatch(setNotes(allNotes));
+		}
+		if (_searchQuery.trim()) {
 			const filteredResults = Object.values(allNotes).filter(
 				(note) =>
 					note.title?.toLowerCase().includes(_searchQuery?.toLowerCase()) ||
