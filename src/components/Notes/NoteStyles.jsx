@@ -8,21 +8,18 @@ export const NotesWrapper = styled.div`
 		width: 100%;
 		height: 100%;
 		display: grid;
-		grid-template-columns: repeat(auto-fit,minmax(20rem,1fr));
+		grid-template-columns: repeat(auto-fit,minmax(20rem,410px));
 		justify-content: center;
 `
 
 export const Actions = styled.div`
-		width: 90px;
+		position: absolute;
+		bottom: -15px;
+		right: 25px;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		padding-right: 30px;
-		visibility: hidden;
-		opacity: 0;
-		transition: all 0.3s ease-in-out;
-
 
 		@media screen and (max-width: 480px) {
 			visibility: visible;
@@ -30,8 +27,21 @@ export const Actions = styled.div`
 		}
 `
 
+export const IconWrap = styled.div`
+		height: 45px;
+		width: 45px;
+		border-radius: 50%;
+		background-color: #faf5f5;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		margin-left: 10px;
+`
+
 export const NotesCard = styled.div`
 		height: 300px;
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		background: rgba(255,255,255,0.1);
@@ -42,10 +52,10 @@ export const NotesCard = styled.div`
 		transition: all 0.3s ease-in-out;
 
 
-		&:hover ${Actions} {
+		/* &:hover ${Actions} {
 			visibility: visible;
 			opacity: 1;
-		}
+		} */
 `
 
 export const CardHeader = styled.div`
@@ -63,7 +73,7 @@ export const CardHeader = styled.div`
 export const CardTitle = styled.h1`
 		font-size: 28px;
 		color: #000;
-		padding-left: 15px;
+		word-break: break-all;
 		font-weight: 450;
 
 

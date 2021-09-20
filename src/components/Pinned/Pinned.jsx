@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from '../Notes/NoteStyles'
+import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc,IconWrap} from '../Notes/NoteStyles'
 import {BiArchiveIn} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
 import {FaExclamationCircle} from 'react-icons/fa'
@@ -9,6 +9,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { archiveNotes } from '../../actions/archiveNote'
 import { pinNotes } from '../../actions/pinNotes'
 import {AiOutlinePushpin,AiFillPushpin} from 'react-icons/ai'
+import { FaTrash } from 'react-icons/fa'
 import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageStyles'
 import Modal from '../Modal/Modal'
 
@@ -33,7 +34,7 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) 
 	},[notes,queriedNotes])
 
 	useEffect(() => {
-		_notes && setPinnedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note]) => note.pinned === true && note.archived === false)))
+		_notes && setPinnedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note]) => note?.pinned === true && note?.archived === false)))
 	},[_notes])
 
 	const handleArchived = (noteDoc) => {
@@ -73,20 +74,27 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) 
 							<ErrorText mode={mode}>No pinned notes found</ErrorText>
 						</PageError> :
 						pinnedNotes && Object.entries(pinnedNotes).map(([noteDoc,note],idx) => (
-							<NotesCard key={note.title}>
+							<NotesCard key={note?.title}>
 								<CardHeader>
-									<CardTitle>{note.title}</CardTitle>
-									<Actions>
-										{note.pinned ? <AiFillPushpin onClick={() => handlePinned(noteDoc)} size='40' /> : <AiOutlinePushpin onClick={() => handlePinned(noteDoc)} size='40' />}
-										{note.archived ? <IoMdArchive onClick={() => handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />}
-									</Actions>
+									<CardTitle>{note?.title}</CardTitle>
 								</CardHeader>
 								<GreyLine></GreyLine>
 								<CardBody onClick={() => handleClick(note,noteDoc)}>
 									<NoteDesc mode={mode}>
-										{note.body}
+										{note?.body}
 									</NoteDesc>
 								</CardBody>
+								<Actions>
+									<IconWrap>
+										{note?.pinned ? <AiFillPushpin onClick={() => handlePinned(noteDoc)} size='25' /> : <AiOutlinePushpin onClick={() => handlePinned(noteDoc)} size='25' />}
+									</IconWrap>
+									<IconWrap>
+										{note?.archived ? <IoMdArchive onClick={() => handleArchived(noteDoc)} size='25' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='25' />}
+									</IconWrap>
+									<IconWrap>
+											<FaTrash size='23' />
+										</IconWrap>
+									</Actions>
 							</NotesCard>
 						)) 
 					}

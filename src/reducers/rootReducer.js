@@ -1,5 +1,6 @@
 import noteReducer from "./noteReducer";
 import archiveReducer from "./archiveReducer";
+import deleteReducer from "./deleteReducer";
 import { combineReducers } from "redux";
 import { firestoreReducer } from "redux-firestore";
 

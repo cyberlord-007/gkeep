@@ -50,6 +50,7 @@ export const InputField = styled.p`
 		font-size: 18px;
 		color: ${({mode}) => (mode ? '#f7f1f1' : '#7c7979')};
 		font-weight: 600;
+		margin-bottom: 10px;
 `
 
 
