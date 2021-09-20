@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PageContainer } from "./global/PageStyles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
@@ -10,11 +10,16 @@ import PinnedPage from "./views/PinnedPage/PinnedPage";
 import ArchivedPage from "./views/ArchivedPage/ArchivedPage";
 
 function App() {
-	const [isOpen, setIsOpen] = useState(false);
+	// useEffect(() => {
+	// 	localStorage.setItem("isOpen", false);
+	// 	localStorage.setItem("clickeNote", "");
+	// }, []);
+
+	const [openNav, setOpenNav] = useState(false);
 	const [darkMode, setDarkMode] = useState(false);
 
 	const toggleNav = () => {
-		setIsOpen(!isOpen);
+		setOpenNav(!openNav);
 	};
 
 	const toggleMode = () => {
@@ -25,7 +30,7 @@ function App() {
 		<div className="App">
 			<PageContainer mode={darkMode}>
 				<Router>
-					<Sidebar isOpen={isOpen} toggle={toggleNav} mode={darkMode} />
+					<Sidebar isOpen={openNav} toggle={toggleNav} mode={darkMode} />
 					<Navbar
 						toggle={toggleNav}
 						toggleDarkMode={toggleMode}

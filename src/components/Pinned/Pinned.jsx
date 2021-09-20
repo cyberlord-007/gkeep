@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { archiveNotes } from '../../actions/archiveNote'
+import { deleteNotes } from '../../actions/deleteNote'
 import { pinNotes } from '../../actions/pinNotes'
 import {AiOutlinePushpin,AiFillPushpin} from 'react-icons/ai'
 import { FaTrash } from 'react-icons/fa'
@@ -14,7 +15,7 @@ import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageS
 import Modal from '../Modal/Modal'
 
 
-const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) => {
+const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,deleteNotes}) => {
 
 
 	const [isOpen,setIsOpen] = useState(false)
@@ -55,6 +56,10 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) 
 		})
 	}
 
+	const handleDelete = (noteDoc) => {
+		deleteNotes({noteDoc})
+	}
+
 	return (
 		<>
 			<NotesContainer mode={mode}>
@@ -74,7 +79,7 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) 
 							<ErrorText mode={mode}>No pinned notes found</ErrorText>
 						</PageError> :
 						pinnedNotes && Object.entries(pinnedNotes).map(([noteDoc,note],idx) => (
-							<NotesCard key={note?.title}>
+							<NotesCard show={note} key={note?.title}>
 								<CardHeader>
 									<CardTitle>{note?.title}</CardTitle>
 								</CardHeader>
@@ -85,15 +90,15 @@ const Pinned = ({mode,notes,queriedNotes=null,pinNotes,archiveNotes,setPinned}) 
 									</NoteDesc>
 								</CardBody>
 								<Actions>
-									<IconWrap>
+									<IconWrap mode={mode}>
 										{note?.pinned ? <AiFillPushpin onClick={() => handlePinned(noteDoc)} size='25' /> : <AiOutlinePushpin onClick={() => handlePinned(noteDoc)} size='25' />}
 									</IconWrap>
-									<IconWrap>
+									<IconWrap mode={mode}>
 										{note?.archived ? <IoMdArchive onClick={() => handleArchived(noteDoc)} size='25' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='25' />}
 									</IconWrap>
-									<IconWrap>
-											<FaTrash size='23' />
-										</IconWrap>
+									<IconWrap mode={mode}>
+											<FaTrash size='23' onClick={() => handleDelete(noteDoc)} />
+									</IconWrap>
 									</Actions>
 							</NotesCard>
 						)) 
@@ -117,6 +122,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		pinNotes: (note) => dispatch(pinNotes(note)),
 		archiveNotes: (note) => dispatch(archiveNotes(note)),
+		deleteNotes: (note) => dispatch(deleteNotes(note))
 	}
 }
 

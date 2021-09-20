@@ -7,6 +7,7 @@ import { firestoreReducer } from "redux-firestore";
 const rootReducer = combineReducers({
 	note: noteReducer,
 	archive: archiveReducer,
+	delete: deleteReducer,
 	firestore: firestoreReducer,
 });
 

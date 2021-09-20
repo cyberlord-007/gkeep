@@ -31,8 +31,8 @@ export const IconWrap = styled.div`
 		height: 45px;
 		width: 45px;
 		border-radius: 50%;
-		background-color: #faf5f5;
-		display: flex;
+		background-color: ${({mode}) => (mode ? '#7f8c8d' : '#fff')};
+		display: flex;	
 		justify-content: center;
 		align-items: center;
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -42,7 +42,7 @@ export const IconWrap = styled.div`
 export const NotesCard = styled.div`
 		height: 300px;
 		position: relative;
-		display: flex;
+		display: ${({show}) => (!show?.title  ? 'none' : 'flex')};
 		flex-direction: column;
 		background: rgba(255,255,255,0.1);
 		border-radius: 20px;

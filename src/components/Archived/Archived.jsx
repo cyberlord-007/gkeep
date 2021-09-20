@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { archiveNotes } from '../../actions/archiveNote'
-import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc} from '../Notes/NoteStyles'
+import { deleteNotes } from '../../actions/deleteNote'
+import { NotesContainer,NotesWrapper,NotesCard,CardHeader,Actions,CardTitle,GreyLine,CardBody,NoteDesc,IconWrap} from '../Notes/NoteStyles'
 import {BiArchiveIn} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
 import {FaExclamationCircle} from 'react-icons/fa'
@@ -8,11 +9,12 @@ import {connect} from 'react-redux'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import {AiOutlinePushpin} from 'react-icons/ai'
+import { FaTrash } from 'react-icons/fa'
 import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageStyles'
 
 
 
-const Archived = ({mode,notes,archiveNotes}) => {
+const Archived = ({mode,notes,archiveNotes,deleteNotes}) => {
 
 
 	const [_notes, setNotes] = useState(notes)
@@ -23,12 +25,16 @@ const Archived = ({mode,notes,archiveNotes}) => {
 	},[notes])
 
 	useEffect(() => {
-		_notes && setArchivedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note])=>note.archived===true)))
+		_notes && setArchivedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note])=>note?.archived===true)))
 	},[_notes])
 
 	const handleArchived = (noteDoc) => {
 		const note = notes[noteDoc]
 		archiveNotes({noteDoc,note})
+	}
+
+	const handleDelete = (noteDoc) => {
+		deleteNotes({noteDoc})
 	}
 
 	return (
@@ -50,19 +56,24 @@ const Archived = ({mode,notes,archiveNotes}) => {
 							<ErrorText mode={mode}>No archived notes found</ErrorText>
 						</PageError> :
 						Object.keys(archivedNotes).map((noteDoc) => (
-							<NotesCard key={archivedNotes[noteDoc].title}>
+							<NotesCard show={archivedNotes[noteDoc]} key={archivedNotes[noteDoc]?.title}>
 								<CardHeader>
-									<CardTitle>{archivedNotes[noteDoc].title}</CardTitle>
-									<Actions>
-										{archivedNotes[noteDoc].archived ? <IoMdArchive onClick={() =>handleArchived(noteDoc)} size='40' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='40' />}
-									</Actions>
+									<CardTitle>{archivedNotes[noteDoc]?.title}</CardTitle>
 								</CardHeader>
 								<GreyLine></GreyLine>
 								<CardBody>
 									<NoteDesc mode={mode}>
-										{archivedNotes[noteDoc].body}
+										{archivedNotes[noteDoc]?.body}
 									</NoteDesc>
 								</CardBody>
+								<Actions>
+									<IconWrap mode={mode}>
+										{archivedNotes[noteDoc]?.archived ? <IoMdArchive onClick={() => handleArchived(noteDoc)} size='25' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='25' />}
+									</IconWrap>
+									<IconWrap mode={mode}>
+											<FaTrash onClick={() => handleDelete(noteDoc)} size='23' />
+									</IconWrap>
+								</Actions>
 							</NotesCard>
 						))
 					}
@@ -81,7 +92,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		archiveNotes: (note) => dispatch(archiveNotes(note))
+		archiveNotes: (note) => dispatch(archiveNotes(note)),
+		deleteNotes: (note) => dispatch(deleteNotes(note))
 	}
 }
 

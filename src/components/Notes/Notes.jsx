@@ -14,8 +14,8 @@ import {FaTrash} from 'react-icons/fa'
 const Notes = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 
 
-	const [isOpen,setIsOpen] = useState(false)
-	const [clickedCard,setClickedCard] = useState({})
+	const [isOpen,setIsOpen] = useState(localStorage.getItem('clickedNote'));
+	const [clickedCard,setClickedCard] = useState({...JSON.parse(localStorage.getItem('clickedNote'))});
 
 	const handlePinned = (noteDoc) => {
 		const note = notes[noteDoc]
@@ -29,11 +29,17 @@ const Notes = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 	}
 
 	const handleClick = (note,noteDoc) => {
-		setIsOpen(true)
-		setClickedCard({
+		localStorage.setItem('clickedNote',JSON.stringify({
 			noteData: {...note},
 			noteDoc
-		})
+		}));
+		setIsOpen(true);
+		setClickedCard({...JSON.parse(localStorage.getItem('clickedNote'))});
+	}
+
+	const onClose = () => {
+			setIsOpen(false);
+			localStorage.removeItem('clickedNote');
 	}
 
 	const handleDelete = (noteDoc) => {
@@ -52,7 +58,7 @@ const Notes = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 						notes && Object.keys(notes)?.map((noteDoc,idx) => (
 							<>
 							{notes[noteDoc]?.archived ? null:
-								<NotesCard key={notes[noteDoc]?.title}>
+								<NotesCard show={notes[noteDoc]} key={notes[noteDoc]?.title}>
 									<CardHeader>
 										<CardTitle>{notes[noteDoc]?.title}</CardTitle>
 									</CardHeader>
@@ -63,17 +69,17 @@ const Notes = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 										</NoteDesc>	
 									</CardBody>
 									<Actions>
-										<IconWrap>
+										<IconWrap mode={mode}>
 											{
 												notes[noteDoc]?.pinned ? <AiFillPushpin onClick={()=>handlePinned(noteDoc)} size='25' /> : <AiOutlinePushpin onClick={()=>handlePinned(noteDoc)} size='25' />
 											}
 										</IconWrap>
-										<IconWrap>
+										<IconWrap mode={mode}>
 											{
 												notes[noteDoc]?.archived ? <IoMdArchive onClick={()=> handleArchived(noteDoc)} size='25' />  : <BiArchiveIn onClick={() => handleArchived(noteDoc)} size='25' />
 											}
 										</IconWrap>
-										<IconWrap>
+										<IconWrap mode={mode}>
 											<FaTrash onClick={() => handleDelete(noteDoc)} size='23' />
 										</IconWrap>
 										</Actions>
@@ -84,7 +90,7 @@ const Notes = ({mode,notes,pinNotes,archiveNotes,deleteNotes}) => {
 					}
 				</NotesWrapper>
 			</NotesContainer>
-			<Modal open={isOpen} onClose={() => setIsOpen(false)} mode={mode} type='edit' data={clickedCard}/>
+			<Modal open={isOpen} onClose={onClose} mode={mode} type='edit' data={clickedCard}/>
 		</>
 	)
 }

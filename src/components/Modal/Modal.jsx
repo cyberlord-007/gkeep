@@ -11,7 +11,7 @@ const Modal = ({ open,onClose,mode,createNote,editNotes,type,data}) => {
 
 		const [title,setTitle] = useState()
 		const [body,setBody] = useState()
-
+		console.log(data);
 
 		useEffect(() => {
 			if(type === 'edit') {
@@ -31,7 +31,7 @@ const Modal = ({ open,onClose,mode,createNote,editNotes,type,data}) => {
 		const handleClose= (e) => {
 			e.preventDefault()
 			if(title === '' && body === '') {
-				onClose()
+				onClose()	
 			} else {
 				const note = data?.noteData
 				const noteDoc = data?.noteDoc

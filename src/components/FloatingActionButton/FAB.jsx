@@ -1,18 +1,28 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {FaButton} from './FABStyles'
 import Modal from '../Modal/Modal'
 import {FaPlus} from 'react-icons/fa'
 
 const FAB = ({mode}) => {
 
-	const [isOpen,setIsOpen] = useState(false)
+	const modalOpen = localStorage.getItem('isOpen') === 'true';
+	const [isOpen,setIsOpen] = useState(modalOpen);
+	console.log(typeof localStorage.getItem('isOpen'));
+
+	useEffect(() => {
+		localStorage.setItem('isOpen',isOpen);
+	}, [isOpen])
 
 	return (
 		<>
-			<FaButton onClick={() => setIsOpen(true)} mode={mode}>
+			<FaButton onClick={() => {
+				setIsOpen(true)
+			}} mode={mode}>
 				<FaPlus />
 			</FaButton>
-			<Modal open={isOpen} onClose={() => setIsOpen(false)} mode={mode} />
+			<Modal open={isOpen} onClose={() => {
+				setIsOpen(false)
+			}} mode={mode} />
 		</>
 	)
 }
