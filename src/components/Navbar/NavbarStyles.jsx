@@ -24,7 +24,7 @@ export const Nav = styled.nav`
 export const NavWrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    height: 86px;
+    height: 80px;
     z-index: 1;
     width: 100%;
     padding: 0 24px;

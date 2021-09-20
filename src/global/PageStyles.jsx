@@ -4,6 +4,7 @@ export const PageContainer = styled.div`
 		width: 100%;
 		min-height: 100vh;
 		background: ${({mode}) => (mode ? '#202124': '#fff')};
+		padding-bottom: 28px;
 `
 
 export const PageTitleRow = styled.div`

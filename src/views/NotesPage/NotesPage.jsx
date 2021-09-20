@@ -1,43 +1,30 @@
-import React,{useState, useEffect} from 'react'
+import React,{ useEffect } from 'react'
 import { connect } from 'react-redux'
 import {compose} from 'redux'
+import { searchNotes, setAllNotes, setNotes,setQuery } from '../../actions/setNotes'
 import { firestoreConnect } from 'react-redux-firebase'
-import { SearchWrap,SearchBar} from '../../global/PageStyles'
-
+import Search from '../../components/Search/Search'
 import Notes from '../../components/Notes/Notes'
 import Pinned from '../../components/Pinned/Pinned'
 
-const NotesPage = ({mode,notes}) => {
+const NotesPage = ({mode,notes,setNotes,noteState,setQuery,searchQuery,searchNotes,allNotes,setAllNotes}) => {
 
 	
-	const [searchQuery,setSearchQuery] = useState('')
-	const [noteState,setNoteState] = useState(notes)
-
 	useEffect(() => {
-		setNoteState(notes)
-	}, [notes])
+		setAllNotes({...notes})
+		setNotes({...notes});
+	}, [notes]);
 
-
-	const searchNotes = (_searchQuery) => {
-		if(_searchQuery && _searchQuery.trim()) {
-			const filteredResults = Object.values(notes).filter(note => (
-				note.title?.toLowerCase().includes(_searchQuery?.toLowerCase()) || note.body?.toLowerCase().includes(_searchQuery?.toLowerCase())
-			))
-			setNoteState(filteredResults)
-		}
-	}
 
 
 	const handleChange = (e) => {
-		setSearchQuery(e.target.value)
+		setQuery(e.target.value)
 		searchNotes(e.target.value)
 	}
 
 	return (
 		<>
-			<SearchWrap>
-				<SearchBar onChange={handleChange} type='text' name='search' value={searchQuery} placeholder='Search...' />
-			</SearchWrap>
+			<Search change={handleChange} value={searchQuery}/>
 			<Pinned mode={mode} queriedNotes={noteState} />
 			<Notes mode={mode} notes={noteState} />
 		</>
@@ -47,10 +34,22 @@ const NotesPage = ({mode,notes}) => {
 const mapStateToProps = (state) => {
 	console.log('state with pinned',state)
 	return {
-		notes: state.firestore.data.notes
+		notes: state.firestore.data.notes,
+		noteState: state.note.notes,
+		searchQuery: state.note.searchQuery,
+		allNotes: state.note.allNotes
 	}
 }
 
-export default compose(connect(mapStateToProps,null),firestoreConnect([
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setNotes: (notes) => dispatch(setNotes(notes)),
+		setQuery: (query) => dispatch(setQuery(query)),
+		searchNotes: (query) => dispatch(searchNotes(query)),
+		setAllNotes: (notes) => dispatch(setAllNotes(notes))
+	}
+}
+
+export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
 	{collection: 'notes',orderBy: ['createdAt','asc']}
 ]))(NotesPage)

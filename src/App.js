@@ -10,10 +10,7 @@ import PinnedPage from "./views/PinnedPage/PinnedPage";
 import ArchivedPage from "./views/ArchivedPage/ArchivedPage";
 
 function App() {
-	// useEffect(() => {
-	// 	localStorage.setItem("isOpen", false);
-	// 	localStorage.setItem("clickeNote", "");
-	// }, []);
+
 
 	const [openNav, setOpenNav] = useState(false);
 	const [darkMode, setDarkMode] = useState(false);

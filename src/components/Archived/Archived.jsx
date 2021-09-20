@@ -14,15 +14,21 @@ import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageS
 
 
 
-const Archived = ({mode,notes,archiveNotes,deleteNotes}) => {
+const Archived = ({mode,notes,archiveNotes,deleteNotes,queriedNotes=null}) => {
 
 
 	const [_notes, setNotes] = useState(notes)
 	const [archivedNotes,setArchivedNotes] = useState([])
-
+	
+	
 	useEffect(()=>{
-		setNotes(notes)
-	},[notes])
+		if(queriedNotes){
+			setNotes(queriedNotes)
+		} else {
+			setNotes(notes)
+		}
+		
+	},[notes,queriedNotes])
 
 	useEffect(() => {
 		_notes && setArchivedNotes(Object.fromEntries(Object.entries(_notes).filter(([noteDoc,note])=>note?.archived===true)))

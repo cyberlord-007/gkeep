@@ -4,3 +4,6 @@ export const PIN_NOTES = "PIN_NOTES";
 export const EDIT_NOTE = "EDIT_NOTE";
 export const SET_PINNED = "SET_PINNED";
 export const DELETE_NOTE = "DELETE_NOTE";
+export const SET_NOTE = "SET_NOTE";
+export const SEARCH_QUERY = "SEARCH_QUERY";
+export const SET_ALL_NOTES = "SET_ALL_NOTES";

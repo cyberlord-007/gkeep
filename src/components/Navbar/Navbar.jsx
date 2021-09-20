@@ -8,6 +8,7 @@ import {
 	NavTitle
 } from './NavbarStyles';
 import { FaBars,FaClipboardCheck,FaSun,FaRegSun } from 'react-icons/fa';
+import Search from '../Search/Search';
 
 
 const Navbar = ({toggle,toggleDarkMode,mode}) => {
