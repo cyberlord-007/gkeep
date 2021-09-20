@@ -50,7 +50,7 @@ const Modal = ({ open,onClose,mode,createNote,editNotes,type,data}) => {
             <ModalWrapper mode={mode}>
                 <ModalHeader>
                     <ModalHeaderText>
-											Add Task...
+											{type === "edit" ? "Edit Task..." : "Add Task..."}
                     </ModalHeaderText>
                 </ModalHeader>
 								<ModalBody>
