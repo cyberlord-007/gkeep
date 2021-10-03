@@ -22,7 +22,14 @@ import { BiArchiveIn, BiNotepad } from 'react-icons/bi';
 import { IoMdArchive } from 'react-icons/io';
 import { FaTrash } from 'react-icons/fa';
 
-const GlobalNotes = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
+const GlobalNotes = ({
+  mode,
+  notes,
+  pinNotes,
+  archiveNotes,
+  deleteNotes,
+  searchQuery,
+}) => {
   const [isOpen, setIsOpen] = useState(localStorage.getItem('clickedNote'));
   const [clickedCard, setClickedCard] = useState({
     ...JSON.parse(localStorage.getItem('clickedNote')),
@@ -64,7 +71,9 @@ const GlobalNotes = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
       <NotesContainer mode={mode}>
         <PageTitleRow>
           <BiNotepad size='35' color={mode ? '#fff' : '#000'} />
-          <SectionTitle mode={mode}>Your Notes</SectionTitle>
+          <SectionTitle mode={mode}>
+            {searchQuery ? 'Search Results' : 'Your Notes'}
+          </SectionTitle>
         </PageTitleRow>
         <NotesWrapper>
           {notes &&
@@ -140,4 +149,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(GlobalNotes);
+const mapStateToProps = (state) => {
+  return {
+    searchQuery: state.note.searchQuery,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalNotes);

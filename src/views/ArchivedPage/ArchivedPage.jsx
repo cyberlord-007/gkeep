@@ -3,6 +3,7 @@ import Archived from '../../components/Archived/Archived'
 import { connect } from 'react-redux'
 import { searchNotes, setQuery } from '../../actions/setNotes'
 import Search from '../../components/Search/Search'
+import GlobalNotes from '../../components/GlobalNotes/GlobalNotes'
 
 
 const ArchivedPage = ({mode,setQuery,searchQuery,searchNotes,noteState}) => {
@@ -15,7 +16,7 @@ const ArchivedPage = ({mode,setQuery,searchQuery,searchNotes,noteState}) => {
 	return (
 		<>
 			<Search change={handleChange} value={searchQuery}/>
-			<Archived mode={mode} notes={noteState}/>
+			{searchQuery ? <GlobalNotes mode={mode} notes={noteState} /> : <Archived mode={mode} notes={noteState}/> }
 		</>
 	)
 }
