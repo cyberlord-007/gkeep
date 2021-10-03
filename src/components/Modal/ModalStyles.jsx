@@ -77,7 +77,7 @@ export const DescInput = styled.textarea`
 		color: ${({mode}) => (mode ? '#fff': '#000')};
 		background: ${({mode}) => (mode ? 'rgba(255,255,255,0.1)' : '#fff')};
 		border-bottom: 1px solid #000;
-
+		
 
 		&:focus {
 			outline: none;

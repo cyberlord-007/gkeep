@@ -6,9 +6,6 @@ import {BiArchiveIn} from 'react-icons/bi'
 import {IoMdArchive} from 'react-icons/io'
 import {FaExclamationCircle} from 'react-icons/fa'
 import {connect} from 'react-redux'
-import {compose} from 'redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import {AiOutlinePushpin} from 'react-icons/ai'
 import { FaTrash } from 'react-icons/fa'
 import { PageTitleRow,SectionTitle,PageError,ErrorText} from '../../global/PageStyles'
 
@@ -80,13 +77,6 @@ const Archived = ({mode,notes,archiveNotes,deleteNotes,queriedNotes=null}) => {
 		</>
 	)
 }
-
-// const mapStateToProps = (state) => {
-// 	console.log('state..',state)
-// 	return {
-// 		notes: state.firestore.data.notes
-// 	}
-// }
 
 const mapDispatchToProps = (dispatch) => {
 	return {

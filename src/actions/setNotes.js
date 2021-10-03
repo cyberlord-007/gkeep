@@ -42,7 +42,7 @@ export const searchNotes = (_searchQuery) => {
 				(note) =>
 					note.title?.toLowerCase().includes(_searchQuery?.toLowerCase()) ||
 					note.body?.toLowerCase().includes(_searchQuery?.toLowerCase())
-			);
+			); 
 			dispatch(setNotes(filteredResults));
 		}
 	};

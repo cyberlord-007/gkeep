@@ -14,7 +14,7 @@ import {
   CardBody,
   NoteDesc,
   IconWrap,
-} from './NoteStyles';
+} from '../Notes/NoteStyles';
 import { PageTitleRow, SectionTitle } from '../../global/PageStyles';
 import Modal from '../Modal/Modal';
 import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
@@ -22,7 +22,7 @@ import { BiArchiveIn, BiNotepad } from 'react-icons/bi';
 import { IoMdArchive } from 'react-icons/io';
 import { FaTrash } from 'react-icons/fa';
 
-const Notes = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
+const GlobalNotes = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
   const [isOpen, setIsOpen] = useState(localStorage.getItem('clickedNote'));
   const [clickedCard, setClickedCard] = useState({
     ...JSON.parse(localStorage.getItem('clickedNote')),
@@ -70,35 +70,27 @@ const Notes = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
           {notes &&
             Object.keys(notes)?.map((noteDoc, idx) => (
               <>
-                {notes[noteDoc]?.archived ? null : (
-                  <NotesCard
-                    onClick={() => handleClick(notes[noteDoc], noteDoc)}
-                    show={notes[noteDoc]}
-                    key={notes[noteDoc]?.title}
-                  >
+                {
+                  <NotesCard show={notes[noteDoc]} key={notes[noteDoc]?.title}>
                     <CardHeader>
                       <CardTitle>{notes[noteDoc]?.title}</CardTitle>
                     </CardHeader>
                     <GreyLine></GreyLine>
-                    <CardBody>
+                    <CardBody
+                      onClick={() => handleClick(notes[noteDoc], noteDoc)}
+                    >
                       <NoteDesc mode={mode}>{notes[noteDoc]?.body}</NoteDesc>
                     </CardBody>
                     <Actions>
                       <IconWrap mode={mode}>
                         {notes[noteDoc]?.pinned ? (
                           <AiFillPushpin
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handlePinned(noteDoc);
-                            }}
+                            onClick={() => handlePinned(noteDoc)}
                             size='25'
                           />
                         ) : (
                           <AiOutlinePushpin
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handlePinned(noteDoc);
-                            }}
+                            onClick={() => handlePinned(noteDoc)}
                             size='25'
                           />
                         )}
@@ -106,34 +98,25 @@ const Notes = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
                       <IconWrap mode={mode}>
                         {notes[noteDoc]?.archived ? (
                           <IoMdArchive
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleArchived(noteDoc);
-                            }}
+                            onClick={() => handleArchived(noteDoc)}
                             size='25'
                           />
                         ) : (
                           <BiArchiveIn
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleArchived(noteDoc);
-                            }}
+                            onClick={() => handleArchived(noteDoc)}
                             size='25'
                           />
                         )}
                       </IconWrap>
                       <IconWrap mode={mode}>
                         <FaTrash
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(noteDoc);
-                          }}
+                          onClick={() => handleDelete(noteDoc)}
                           size='23'
                         />
                       </IconWrap>
                     </Actions>
                   </NotesCard>
-                )}
+                }
               </>
             ))}
         </NotesWrapper>
@@ -157,4 +140,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Notes);
+export default connect(null, mapDispatchToProps)(GlobalNotes);
