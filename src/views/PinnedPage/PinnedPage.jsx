@@ -7,7 +7,6 @@ import {
   setNotes,
 } from '../../actions/setNotes';
 import Pinned from '../../components/Pinned/Pinned';
-import Search from '../../components/Search/Search';
 import GlobalNotes from '../../components/GlobalNotes/GlobalNotes';
 
 const PinnedPage = ({
@@ -17,14 +16,9 @@ const PinnedPage = ({
   searchNotes,
   noteState,
 }) => {
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-    searchNotes(e.target.value);
-  };
 
   return (
     <>
-      <Search change={handleChange} value={searchQuery} />
       {searchQuery ? (
         <GlobalNotes mode={mode} notes={noteState} />
       ) : (

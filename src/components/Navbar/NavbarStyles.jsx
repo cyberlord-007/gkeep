@@ -76,3 +76,33 @@ export const NavTitle = styled.p`
   font-size: 30px;
   font-weight: 600;
 `;
+
+export const NavSubRow = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const SearchWrap = styled.span`
+  visibility: ${({ clicked }) => (clicked ? 'visible' : 'hidden')};
+  width: 300px;
+  background-color: #bdc3c7;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  height: 50px;
+  position: absolute;
+  z-index: 1;
+  top: 80%;
+  right: 20px;
+`;
+
+export const SearchIconWrap = styled.div`
+  position: relative;
+  display: inline-block;
+
+  /* &:hover ${SearchWrap} {
+    visibility: visible;
+  } */
+`;
+
+

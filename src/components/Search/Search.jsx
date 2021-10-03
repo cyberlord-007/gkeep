@@ -1,14 +1,20 @@
-import React from 'react'
-import { SearchWrap,SearchBar} from '../../global/PageStyles'
+import React from 'react';
+import { SearchWrap, SearchBar } from '../../global/PageStyles';
 
-const Search = ({change,value}) => {
-	return (
-		<>
-			<SearchWrap>
-				<SearchBar onChange={change} type='text' name='search' value={value} placeholder='Search...' />
-			</SearchWrap>
-		</>
-	)
-}
+const Search = ({ change, value, clicked }) => {
+  return (
+    <>
+      <SearchWrap clicked={clicked}>
+        <SearchBar
+          onChange={change}
+          type='text'
+          name='search'
+          value={value}
+          placeholder='Search...'
+        />
+      </SearchWrap>
+    </>
+  );
+};
 
-export default Search
+export default Search;
