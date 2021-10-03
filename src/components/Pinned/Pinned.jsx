@@ -118,12 +118,18 @@ const Pinned = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
                   <IconWrap mode={mode}>
                     {note?.pinned ? (
                       <AiFillPushpin
-                        onClick={() => handlePinned(noteDoc)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePinned(noteDoc);
+                        }}
                         size='25'
                       />
                     ) : (
                       <AiOutlinePushpin
-                        onClick={() => handlePinned(noteDoc)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePinned(noteDoc);
+                        }}
                         size='25'
                       />
                     )}
@@ -131,18 +137,30 @@ const Pinned = ({ mode, notes, pinNotes, archiveNotes, deleteNotes }) => {
                   <IconWrap mode={mode}>
                     {note?.archived ? (
                       <IoMdArchive
-                        onClick={() => handleArchived(noteDoc)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleArchived(noteDoc);
+                        }}
                         size='25'
                       />
                     ) : (
                       <BiArchiveIn
-                        onClick={() => handleArchived(noteDoc)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleArchived(noteDoc);
+                        }}
                         size='25'
                       />
                     )}
                   </IconWrap>
                   <IconWrap mode={mode}>
-                    <FaTrash size='23' onClick={() => handleDelete(noteDoc)} />
+                    <FaTrash
+                      size='23'
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(noteDoc);
+                      }}
+                    />
                   </IconWrap>
                 </Actions>
               </NotesCard>
